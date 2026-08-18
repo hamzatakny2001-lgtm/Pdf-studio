@@ -12,7 +12,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.pdfstudio.pdf_studio"
+    namespace = "com.hamzatakny.pdfstudio"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "28.2.13676358"
 
@@ -35,7 +35,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.pdfstudio.pdf_studio"
+        applicationId = "com.hamzatakny.pdfstudio"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
