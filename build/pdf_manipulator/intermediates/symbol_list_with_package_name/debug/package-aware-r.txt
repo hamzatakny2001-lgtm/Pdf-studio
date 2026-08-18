@@ -1,0 +1,1 @@
+com.deepanshuchaudhary.pdf_manipulator

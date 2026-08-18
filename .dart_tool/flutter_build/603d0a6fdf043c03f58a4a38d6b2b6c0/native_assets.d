@@ -1,0 +1,1 @@
+ C:\\Users\\ASUS\\.gemini\\antigravity\\scratch\\pdf_studio\\.dart_tool\\flutter_build\\603d0a6fdf043c03f58a4a38d6b2b6c0\\native_assets.yaml: 
