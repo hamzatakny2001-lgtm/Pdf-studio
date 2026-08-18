@@ -1,8 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:share_plus/share_plus.dart';
+import '../../../services/storage_service.dart';
 import '../cubit/pdf_editor_cubit.dart';
 import '../widgets/annotation_layer.dart';
 import '../widgets/toolbar.dart';
@@ -44,8 +46,16 @@ class _PdfEditorScreenState extends State<PdfEditorScreen> {
     return BlocProvider.value(
       value: _cubit,
       child: BlocConsumer<PdfEditorCubit, PdfEditorState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state.savedPath != null && !state.isSaving) {
+            await StorageService.addRecentFile(RecentFile(
+              path: state.savedPath!,
+              name: state.savedPath!.split('/').last,
+              createdAt: DateTime.now(),
+              pageCount: state.totalPages,
+              fileSizeBytes: File(state.savedPath!).lengthSync(),
+            ));
+            if (!context.mounted) return;
             _showSavedDialog(context, state.savedPath!);
           }
           if (state.errorMessage != null) {

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
+import '../../../services/storage_service.dart';
 import '../cubit/image_to_pdf_cubit.dart';
 import '../models/image_item.dart';
 import '../widgets/image_adjustment_panel.dart';
@@ -34,6 +35,14 @@ class _ArrangeBody extends StatelessWidget {
       listener: (context, state) async {
         if (state.status == ConversionStatus.done &&
             state.outputPath != null) {
+          await StorageService.addRecentFile(RecentFile(
+            path: state.outputPath!,
+            name: state.outputPath!.split('/').last,
+            createdAt: DateTime.now(),
+            pageCount: state.images.length,
+            fileSizeBytes: File(state.outputPath!).lengthSync(),
+          ));
+          if (!context.mounted) return;
           await _showExportDialog(context, state.outputPath!);
         } else if (state.status == ConversionStatus.error) {
           ScaffoldMessenger.of(context).showSnackBar(
